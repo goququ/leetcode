@@ -43,3 +43,5 @@ test("5. Longest Palindromic Substring", () => {
     expect(longestPalindrome(input)).toBe(output)
   );
 });
+
+export {};
