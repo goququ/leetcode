@@ -31,7 +31,7 @@ const TEST_CASES = [
   { input: [1], output: 1 },
 ];
 
-test("5. Longest Palindromic Substring", () => {
+test("26. Remove Duplicates from Sorted Array", () => {
   TEST_CASES.forEach(({ input, output }) =>
     expect(removeDuplicates(input)).toBe(output)
   );

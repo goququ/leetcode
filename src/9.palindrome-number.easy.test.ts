@@ -23,7 +23,7 @@ const TEST_CASES = {
   10: false,
 };
 
-test("5. Longest Palindromic Substring", () => {
+test("9. Palindrome Number", () => {
   Object.entries(TEST_CASES).forEach(([input, output]) =>
     expect(isPalindrome(+input)).toBe(output)
   );
