@@ -1,0 +1,84 @@
+import { LinkedList } from "./LinkedList";
+
+describe("Linked list tests", () => {
+  const DATA_ARR = [1, 2, 3];
+  const DEFAULT_LIST = new LinkedList(DATA_ARR);
+  const EMPTY_LIST = new LinkedList([]);
+
+  test("LinkedList.size() method: returns number of data elements in list", () => {
+    expect(DEFAULT_LIST.size()).toBe(DATA_ARR.length);
+    expect(EMPTY_LIST.size()).toBe(0);
+  });
+
+  test("LinkedList.empty() method: bool returns true if empty", () => {
+    expect(DEFAULT_LIST.empty()).toBe(false);
+    expect(EMPTY_LIST.empty()).toBe(true);
+  });
+
+  test("LinkedList.valueAt() method: returns the value of the nth item (starting at 0 for first)", () => {
+    expect(DEFAULT_LIST.valueAt(1)).toBe(DATA_ARR[1]);
+    expect(DEFAULT_LIST.valueAt(10)).toBe(null);
+    expect(EMPTY_LIST.valueAt(4)).toBe(null);
+  });
+
+  test("LinkedList.pushFront() method: adds an item to the front of the list", () => {
+    const list = new LinkedList([1, 2]);
+
+    list.pushFront(0);
+    expect(list.valueAt(0)).toBe(0);
+    list.pushFront(-1);
+    expect(list.valueAt(0)).toBe(-1);
+  });
+
+  test("LinkedList.popFront() method: remove front item and return its value", () => {
+    const list = new LinkedList([1, 2]);
+
+    list.popFront();
+    expect(list.valueAt(0)).toBe(2);
+    list.popFront();
+    expect(list.valueAt(0)).toBe(null);
+  });
+
+  test("LinkedList.pushBack() method: adds an item at the end", () => {
+    const list = new LinkedList([1, 2]);
+    const emptyList = new LinkedList<number>([]);
+
+    list.pushBack(3);
+    expect(list.valueAt(2)).toBe(3);
+
+    emptyList.pushBack(1);
+    expect(emptyList.valueAt(0)).toBe(1);
+  });
+
+  test("LinkedList.popBack() method: removes end item and returns its value", () => {
+    const list = new LinkedList([1, 2]);
+    const emptyList = new LinkedList<number>([]);
+
+    expect(list.popBack()).toBe(2);
+    expect(list.valueAt(1)).toBe(null);
+
+    expect(emptyList.popBack()).toBe(null);
+  });
+
+  test("LinkedList.front() method: get value of front item", () => {
+    const list = new LinkedList([1, 2]);
+    const emptyList = new LinkedList<number>([]);
+
+    expect(list.front()).toBe(1);
+    expect(list.popFront()).toBe(1);
+    expect(list.front()).toBe(2);
+
+    expect(emptyList.front()).toBe(null);
+  });
+
+  /*
+    back() - get value of end item
+    insert(index, value) - insert value at index, so current item at that index is pointed to by new item at index
+    erase(index) - removes node at given index
+    value_n_from_end(n) - returns the value of the node at nth position from the end of the list
+    reverse() - reverses the list
+    remove_value(value) - removes the first item in the list with this value
+  */
+});
+
+export {};
