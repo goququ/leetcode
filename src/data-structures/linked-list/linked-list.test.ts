@@ -71,11 +71,58 @@ describe("Linked list tests", () => {
     expect(emptyList.front()).toBe(null);
   });
 
+  test("LinkedList.back() method: get value of end item", () => {
+    const emptyList = new LinkedList<number>([]);
+
+    expect(DEFAULT_LIST.back()).toBe(3);
+    expect(emptyList.back()).toBe(null);
+  });
+
+  test("LinkedList.toArray() method: get array of list values", () => {
+    const arr1 = [1, 2, 3];
+    const arr2 = [10, 32, 123123, 1];
+
+    expect(new LinkedList<number>(arr1).toArray()).toStrictEqual(arr1);
+    expect(new LinkedList<number>(arr2).toArray()).toStrictEqual(arr2);
+    expect(new LinkedList<number>([]).toArray()).toStrictEqual([]);
+  });
+
+  test("LinkedList.insert() method: insert value at index, so current item at that index is pointed to by new item at index", () => {
+    const emptyList = new LinkedList<number>([]);
+
+    emptyList.insert(0, 2);
+    expect(emptyList.toArray()).toStrictEqual([2]);
+    emptyList.insert(0, 1);
+    expect(emptyList.toArray()).toStrictEqual([1, 2]);
+    emptyList.insert(4, 3);
+    expect(emptyList.toArray()).toStrictEqual([1, 2, 3]);
+  });
+
+  test("LinkedList.erase() method: removes node at given index", () => {
+    const list = new LinkedList([1, 2, 3, 4, 5]);
+    const emptyList = new LinkedList<number>([]);
+
+    list.erase(2);
+    expect(list.toArray()).toStrictEqual([1, 2, 4, 5]);
+    list.erase(0);
+    expect(list.toArray()).toStrictEqual([2, 4, 5]);
+    list.erase(10);
+    expect(list.toArray()).toStrictEqual([2, 4, 5]);
+    emptyList.erase(10);
+    expect(emptyList.toArray()).toStrictEqual([]);
+  });
+
+  test("LinkedList.valueNodeFromEnd() method: returns the value of the node at nth position from the end of the list", () => {
+    const arr = [10, 32, 123123, 1, 23];
+    const list = new LinkedList<number>(arr);
+
+    expect(list.valueNodeFromEnd(0)).toStrictEqual(23);
+    expect(list.valueNodeFromEnd(1)).toStrictEqual(1);
+    expect(list.valueNodeFromEnd(4)).toStrictEqual(10);
+    expect(list.valueNodeFromEnd(10)).toStrictEqual(null);
+  });
+
   /*
-    back() - get value of end item
-    insert(index, value) - insert value at index, so current item at that index is pointed to by new item at index
-    erase(index) - removes node at given index
-    value_n_from_end(n) - returns the value of the node at nth position from the end of the list
     reverse() - reverses the list
     remove_value(value) - removes the first item in the list with this value
   */

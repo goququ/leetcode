@@ -1,5 +1,7 @@
+type NodeValue<T> = T | null;
+
 export class ListNode<T extends unknown> {
-  constructor(public val: T | null, public next: ListNode<T> | null) {}
+  constructor(public val: NodeValue<T>, public next: ListNode<T> | null) {}
 }
 
 export class LinkedList<T extends unknown> {
@@ -101,10 +103,82 @@ export class LinkedList<T extends unknown> {
     return this.head ? this.head.val : null;
   }
 
-  // public back(): T {}
-  // public insert(index: number, val: T) {}
-  // public erase(index: number) {}
-  // public valueNodeFromEnd(index: number): T {}
+  public back(): NodeValue<T> {
+    const node = this.getNodeAtIndex(this.size() - 1);
+
+    return node ? node.val : null;
+  }
+
+  public toArray(): NodeValue<T>[] {
+    const values: NodeValue<T>[] = [];
+    let node = this.head;
+
+    while (node) {
+      values.push(node.val);
+      node = node.next;
+    }
+
+    return values;
+  }
+
+  public insert(index: number, val: T) {
+    const newNode = new ListNode(val, null);
+
+    if (index < 1) {
+      const head = this.head;
+
+      newNode.next = head;
+      this.head = newNode;
+      return;
+    }
+
+    const parentNode = this.getNodeAtIndex(index - 1);
+
+    if (parentNode) {
+      const currentNode = parentNode.next;
+      parentNode.next = newNode;
+      newNode.next = currentNode;
+    } else {
+      this.pushBack(val);
+    }
+  }
+
+  public erase(index: number) {
+    if (index === 0) {
+      this.popFront();
+      return;
+    }
+
+    const parentNode = this.getNodeAtIndex(index - 1);
+
+    if (!parentNode) {
+      return;
+    }
+
+    const nextNode = parentNode.next ? parentNode.next.next : null;
+    parentNode.next = nextNode;
+  }
+
+  public valueNodeFromEnd(index: number): NodeValue<T> {
+    let offset = index;
+    let node = this.head;
+    let resNode = this.head;
+
+    while (node) {
+      if (offset < 0) {
+        resNode = resNode!.next;
+      } else {
+        offset--;
+      }
+      node = node.next;
+    }
+
+    if (offset > 0) {
+      return null;
+    }
+
+    return resNode ? resNode.val : null;
+  }
   // public reverse() {}
   // public removeValue(val: T) {}
 }
