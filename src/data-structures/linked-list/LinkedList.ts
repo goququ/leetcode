@@ -1,5 +1,5 @@
-class ListNode<T extends unknown> {
-  constructor(public value: T | null, public next: ListNode<T> | null) {}
+export class ListNode<T extends unknown> {
+  constructor(public val: T | null, public next: ListNode<T> | null) {}
 }
 
 export class LinkedList<T extends unknown> {
@@ -53,13 +53,13 @@ export class LinkedList<T extends unknown> {
 
   public valueAt(index: number): T | null {
     const node = this.getNodeAtIndex(index);
-    return node ? node.value : null;
+    return node ? node.val : null;
   }
 
-  public pushFront(value: T) {
+  public pushFront(val: T) {
     const head = this.head;
 
-    this.head = new ListNode<T>(value, head);
+    this.head = new ListNode<T>(val, head);
   }
 
   public popFront(): T | null {
@@ -70,11 +70,11 @@ export class LinkedList<T extends unknown> {
     const head = this.head;
     this.head = head.next;
 
-    return head.value;
+    return head.val;
   }
 
-  public pushBack(value: T) {
-    const newNode = new ListNode<T>(value, null);
+  public pushBack(val: T) {
+    const newNode = new ListNode<T>(val, null);
     const tail = this.getNodeAtIndex(this.size() - 1);
 
     if (!tail) {
@@ -90,7 +90,7 @@ export class LinkedList<T extends unknown> {
     }
 
     const newTail = this.getNodeAtIndex(this.size() - 2)!;
-    const returnValue = newTail.next!.value;
+    const returnValue = newTail.next!.val;
 
     newTail.next = null;
 
@@ -98,13 +98,13 @@ export class LinkedList<T extends unknown> {
   }
 
   public front(): T | null {
-    return this.head ? this.head.value : null;
+    return this.head ? this.head.val : null;
   }
 
   // public back(): T {}
-  // public insert(index: number, value: T) {}
+  // public insert(index: number, val: T) {}
   // public erase(index: number) {}
   // public valueNodeFromEnd(index: number): T {}
   // public reverse() {}
-  // public removeValue(value: T) {}
+  // public removeValue(val: T) {}
 }
