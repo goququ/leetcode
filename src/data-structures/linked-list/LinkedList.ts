@@ -143,20 +143,22 @@ export class LinkedList<T extends unknown> {
     }
   }
 
+  private removeNode(node: ListNode<T>) {
+    node.val = node.next ? node.next.val : null;
+    node.next = node.next ? node.next.next : null;
+  }
+
   public erase(index: number) {
     if (index === 0) {
       this.popFront();
       return;
     }
 
-    const parentNode = this.getNodeAtIndex(index - 1);
+    const node = this.getNodeAtIndex(index);
 
-    if (!parentNode) {
-      return;
+    if (node) {
+      this.removeNode(node);
     }
-
-    const nextNode = parentNode.next ? parentNode.next.next : null;
-    parentNode.next = nextNode;
   }
 
   public valueNodeFromEnd(index: number): NodeValue<T> {
@@ -179,6 +181,42 @@ export class LinkedList<T extends unknown> {
 
     return resNode ? resNode.val : null;
   }
-  // public reverse() {}
-  // public removeValue(val: T) {}
+
+  public reverse(): LinkedList<T> {
+    if (!this.head) {
+      return this;
+    }
+
+    let current: ListNode<T> | null = this.head;
+    let next: ListNode<T> | null = this.head.next;
+
+    current.next = null;
+
+    while (current && next) {
+      const curNext = next;
+
+      next = next.next;
+      curNext.next = current;
+      current = curNext;
+    }
+
+    this.head = current;
+
+    return this;
+  }
+
+  public removeValue(val: T): LinkedList<T> {
+    let node = this.head;
+
+    while (node) {
+      if (node.val === val) {
+        this.removeNode(node);
+        break;
+      }
+
+      node = node ? node.next : null;
+    }
+
+    return this;
+  }
 }

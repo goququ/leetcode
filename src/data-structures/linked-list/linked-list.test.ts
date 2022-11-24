@@ -122,10 +122,25 @@ describe("Linked list tests", () => {
     expect(list.valueNodeFromEnd(10)).toStrictEqual(null);
   });
 
-  /*
-    reverse() - reverses the list
-    remove_value(value) - removes the first item in the list with this value
-  */
+  test("LinkedList.reverse() method: reverses the list", () => {
+    expect(new LinkedList<number>([]).reverse().toArray()).toStrictEqual([]);
+    expect(new LinkedList<number>([1, 2, 3]).reverse().toArray()).toStrictEqual(
+      [3, 2, 1]
+    );
+    expect(new LinkedList<number>([1]).reverse().toArray()).toStrictEqual([1]);
+  });
+
+  test("LinkedList.removeValue() method: removes the first item in the list with this value", () => {
+    expect(new LinkedList<number>([]).removeValue(2).toArray()).toStrictEqual(
+      []
+    );
+    expect(new LinkedList<number>([1]).removeValue(2).toArray()).toStrictEqual([
+      1,
+    ]);
+    expect(
+      new LinkedList<number>([1, 2, 3, 2]).removeValue(2).toArray()
+    ).toStrictEqual([1, 3, 2]);
+  });
 });
 
 export {};
