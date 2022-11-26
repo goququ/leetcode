@@ -2,6 +2,18 @@ type NodeValue<T> = T | null;
 
 export class ListNode<T extends unknown> {
   constructor(public val: NodeValue<T>, public next: ListNode<T> | null) {}
+
+  public toArray(): NodeValue<T>[] {
+    const values: NodeValue<T>[] = [];
+    let node: ListNode<T> | null = this;
+
+    while (node) {
+      values.push(node.val);
+      node = node.next;
+    }
+
+    return values;
+  }
 }
 
 export class LinkedList<T extends unknown> {
@@ -110,15 +122,11 @@ export class LinkedList<T extends unknown> {
   }
 
   public toArray(): NodeValue<T>[] {
-    const values: NodeValue<T>[] = [];
-    let node = this.head;
-
-    while (node) {
-      values.push(node.val);
-      node = node.next;
+    if (this.head) {
+      return this.head.toArray.bind(this.head)();
     }
 
-    return values;
+    return [];
   }
 
   public insert(index: number, val: T) {
