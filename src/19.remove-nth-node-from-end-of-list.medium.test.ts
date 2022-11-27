@@ -1,4 +1,4 @@
-/* https://leetcode.com/problems/delete-node-in-a-linked-list/ */
+/* https://leetcode.com/problems/remove-nth-node-from-end-of-list/ */
 
 import { ListNode, LinkedList } from "./data-structures/linked-list/LinkedList";
 
